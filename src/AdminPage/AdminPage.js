@@ -4,24 +4,27 @@ import axios from 'axios';
 import Form from './workBox/Form/Form';
 
 
-function onAddHeadphoneButtonClickHandler(setAdding,setData,setDataType)  {
-    
+function onAddHeadphoneButtonClickHandler(setAdding,setData,setDataType,adding)  {
+    setAdding(!adding); 
+    if(adding){
     axios.get('https://r5j018428h.execute-api.us-east-2.amazonaws.com/test/getformheadphone',{ crossdomain: true })
 
       .then(res => {
        
         
-        setAdding(true);
+        
         console.log(res.data);
         var data=[...res.data.body.fields];
         var data_type=[...res.data.body.field_type];
         console.log(data);
         setData(data);
-        setDataType(data_type);
-      })
+        setDataType(data_type);}
+      )}
+      
 }
-function onListHeadphoneButtonClickHandler  ()  {
-    alert("am cocugu egehan1");
+function onListHeadphoneButtonClickHandler  (setEditing,editing)  {
+    setEditing(!editing);
+    
 
 }
 function onAddNewsButtonClickHandler  ()  {
@@ -46,12 +49,12 @@ function AdminPage ()  {
     
         return (
         <div>
-            <AdminPageButton clicked={(data)=>onAddHeadphoneButtonClickHandler(setAdding,setData,setDataType)} >Add Headphone</AdminPageButton>
-            <AdminPageButton clicked={onListHeadphoneButtonClickHandler} >List Headphone</AdminPageButton>
+            <AdminPageButton clicked={()=>onAddHeadphoneButtonClickHandler(setAdding,setData,setDataType,adding)} >Add Headphone</AdminPageButton>
+            <AdminPageButton clicked={()=>onListHeadphoneButtonClickHandler(setEditing,editing)} >List Headphone</AdminPageButton>
             <AdminPageButton clicked={onAddNewsButtonClickHandler} >Add News</AdminPageButton>
             <AdminPageButton clicked={onListNewsButtonClickHandler} >List News</AdminPageButton>
             
-            <Form adding={adding} data={data} data_type={data_type}></Form>
+            <Form editing={editing} adding={adding} data={data} data_type={data_type}></Form>
             
         </div>
         )
