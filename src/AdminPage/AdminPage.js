@@ -13,10 +13,10 @@ function onAddHeadphoneButtonClickHandler(setAdding,setData,setDataType,adding) 
        
         
         
-        console.log(res.data);
+        
         var data=[...res.data.body.fields];
         var data_type=[...res.data.body.field_type];
-        console.log(data);
+        
         setData(data);
         setDataType(data_type);}
       )}

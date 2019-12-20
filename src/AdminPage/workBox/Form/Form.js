@@ -7,14 +7,16 @@ import axios from 'axios';
 import { DropdownList } from 'react-widgets';
 import 'react-widgets/dist/css/react-widgets.css';
 import { thisExpression } from '@babel/types';
-
+import EditBox from '../EditBox/EditBox';
 class Form extends Component {
 
         state = {
                 data: [],
-                search: ""
+                search: "",
+                editFormData:[],
+                editBox:false
         }
-
+        
         onSubmitButtonClickHandler = () => {
 
                 axios.post("https://awy9jz88zl.execute-api.us-east-2.amazonaws.com/test/", this.state.data, { crossdomain: true })
@@ -25,12 +27,20 @@ class Form extends Component {
         }
         onSearchSubmitButtonClickHandler = () => {
                 var data2= {'searchstring':this.state.search}
-                console.log(data2);
+                var tmparray=[];
                 
                 axios.get("https://r5j018428h.execute-api.us-east-2.amazonaws.com/delirmetesti/getformheadphone",{params:data2},{ crossdomain: true }).then((res) => {
-
-                        alert(JSON.stringify(res.data[0]));
+                        
+                        
+                        tmparray=[...res.data];
+                        
+                        this.setState({editFormData:tmparray});
+                        this.setState({editBox:true});
+                        
+                        
+                        
                 })
+                
         }
         onInputFieldChangeHandler = (i, e) => {
                 var data = [...this.state.data];
@@ -73,6 +83,7 @@ class Form extends Component {
 
 
         }
+     
 
 
 
@@ -80,10 +91,11 @@ class Form extends Component {
 
                 var element;
                 var adding, editing;
-
+               
                 adding = this.props.adding;
                 editing = this.props.editing;
-                console.log(editing);
+                
+                
                 return (
                         adding ? (
                                 <div>
@@ -99,8 +111,10 @@ class Form extends Component {
 
                                 editing ? (<div>
                                         <InputField changed={(e)=>this.onSearchFieldChange(e)} placeholder="Search"></InputField>
-                                        <SubmitButton clicked={this.onSearchSubmitButtonClickHandler}></SubmitButton>
-                                </div>) : null
+                                        <SubmitButton clicked={this.onSearchSubmitButtonClickHandler} ></SubmitButton>
+                                        <div>{this.state.editBox ? <EditBox data={this.state.editFormData}></EditBox>:null}
+                                       
+                                </div></div> ): null
                 )
 
         }
