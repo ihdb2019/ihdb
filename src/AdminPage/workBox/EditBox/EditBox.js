@@ -4,26 +4,29 @@ import axios from 'axios';
 import { render } from 'react-dom';
 import { DropdownList } from 'react-widgets';
 
+
 class EditBox extends Component {
 
     state = {
         editData: []
     }
     onInputFieldChangeHandler = (i, e) => {
-        var data = [...this.state.editData];
-        //data[i]=e.target.value;       
-        data[i] = e.target.value;
-        this.setState({ editData: data });
-
-
-
-
+        var data = e.target.value;
+        
+        console.log("this is data");
+        console.log(data);
+        console.log("this is state");
+        console.log(this.state.editData);
+        this.state.editData[e.target.placeholder]=data;
+        this.forceUpdate();        //data[i]=e.target.value;       
+        
+    
+        
     }
-    onDropDownChangeHandler = (i, value) => {
-        var data = [...this.state.editData];
-        //data[i]=e.target.value;       
-        data[i] = value;
-        this.setState({ editData: data });
+    onDropDownChangeHandler = (i, e) => {
+          
+        
+        console.log(i);
     }
     onEditButtonClickHandler = (e) => {
         var data = { 'HEADPHONENAME': e.target.value }
@@ -43,7 +46,7 @@ class EditBox extends Component {
             tmparray.push(res.data.DRIVERTYPE);
             tmparray.push(res.data.EAR);
 
-            console.log(tmparray);
+            
             this.setState({ editData: [...tmparray] });
 
         })
@@ -71,57 +74,58 @@ class EditBox extends Component {
         let options_ear = ['in-ear', 'over-ear', 'on-ear'];
         if (this.state.editData.length > 0) {
             var tmpdata = [...this.state.editData];
-            for (var i = 0; i < tmpdata.length; i++) {
-                if (i === tmpdata.length - 1) {
-                    if (tmpdata[i] === 1) {
-                        tmpdata[i] = "in-ear";
+            
+            for (var j = 0; j < tmpdata.length; j++) {
+                if (j === tmpdata.length - 1) {
+                    if (tmpdata[j] === 1) {
+                        tmpdata[j] = "in-ear";
 
                     }
-                    else if (tmpdata[i] === 2) {
-                        tmpdata[i] = "over-ear";
-
-                    }
-
-                    else {
-                        tmpdata[i] = "on-ear";
-                    }
-                    elements2.push(<DropdownList key={i} value={tmpdata[i]} data={options_ear} onChange={(value) => this.onDropDownChangeHandler(i, value)} placeholder={tmpdata[i]}></DropdownList>);
-                }
-                else if (i === tmpdata.length - 5) {
-                    if (tmpdata[i] === 1) {
-                        tmpdata[i] = "bass";
-                    }
-                    else if (tmpdata[i] === 2) {
-                        tmpdata[i] = "balanced";
+                    else if (tmpdata[j] === 2) {
+                        tmpdata[j] = "over-ear";
 
                     }
 
                     else {
-                        tmpdata[i] = "v-shaped";
+                        tmpdata[j] = "on-ear";
                     }
-                    elements2.push(<DropdownList key={i} value={tmpdata[i]} data={options_soundtype} onChange={(value) => this.onDropDownChangeHandler(i, value)} placeholder={tmpdata[i]}></DropdownList>);
+                    elements2.push(<DropdownList key={j} value={tmpdata[j]} data={options_ear} onChange={(placeholder) => this.onDropDownChangeHandler(j, placeholder)} placeholder={j}></DropdownList>);
                 }
-                else if (typeof (tmpdata[i] === "number")) {
-                    if (tmpdata[i] === 1) {
-                        tmpdata[i] = "very bad";
+                else if (j === tmpdata.length - 5) {
+                    if (tmpdata[j] === 1) {
+                        tmpdata[j] = "bass";
                     }
-                    else if (tmpdata[i] === 2) {
-                        tmpdata[i] = "bad";
+                    else if (tmpdata[j] === 2) {
+                        tmpdata[j] = "balanced";
 
                     }
-                    else if (tmpdata[i] === 3) {
-                        tmpdata[i] = "average";
+
+                    else {
+                        tmpdata[j] = "v-shaped";
+                    }
+                    elements2.push(<DropdownList key={j} value={tmpdata[j]} data={options_soundtype} onChange={(e) => this.onDropDownChangeHandler(j, e)} placeholder={j}></DropdownList>);
+                }
+                else if (typeof (tmpdata[j] === "number")) {
+                    if (tmpdata[j] === 1) {
+                        tmpdata[j] = "very bad";
+                    }
+                    else if (tmpdata[j] === 2) {
+                        tmpdata[j] = "bad";
 
                     }
-                    else if (tmpdata[i] === 4) {
-                        tmpdata[i] = "good";
+                    else if (tmpdata[j] === 3) {
+                        tmpdata[j] = "average";
 
                     }
-                    else if (tmpdata[i] === 5) {
-                        tmpdata[i] = "very good";
+                    else if (tmpdata[j] === 4) {
+                        tmpdata[j] = "good";
 
                     }
-                    elements2.push(<InputField key={i} value={tmpdata[i]} placeholder={tmpdata[i]} changed={(e) => this.onInputFieldChangeHandler(i, e)}></InputField>)
+                    else if (tmpdata[j] === 5) {
+                        tmpdata[j] = "very good";
+
+                    }
+                    elements2.push(<InputField index={j} key={j} value={tmpdata[j]} placeholder={j} changed={(e) => this.onInputFieldChangeHandler(j, e)}></InputField>)
                 }
                 else {
 
