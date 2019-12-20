@@ -1,52 +1,140 @@
 import React, { Component } from 'react';
 import InputField from '../Form/InputField/InputField'
 import axios from 'axios';
-import { render } from 'react-dom';
+import SubmitButton from '../Form/SubmitButton/SubmitButton'
 import { DropdownList } from 'react-widgets';
 
 
 class EditBox extends Component {
-
-    state = {
-        editData: []
-    }
-    onInputFieldChangeHandler = (i, e) => {
-        var data = e.target.value;
-        
-        console.log("this is data");
-        console.log(data);
-        console.log("this is state");
-        console.log(this.state.editData);
-        this.state.editData[e.target.placeholder]=data;
-        this.forceUpdate();        //data[i]=e.target.value;       
-        
     
-        
+    state = {
+        editData: [],
+        EXNAME:""
+
     }
-    onDropDownChangeHandler = (i, e) => {
-          
-        
-        console.log(i);
+    onInputFieldChangeHandler = (index, e) => {
+        let tmp = [...this.state.editData]
+        var data = e.target.value;
+
+
+        tmp[index] = data;
+        this.setState({ editData: tmp });
+
+
+
     }
+    onDropDownChangeHandler = (event, index) => {
+
+        let tmp = [...this.state.editData]
+        console.log(tmp);
+        tmp[index] = event;
+        this.setState({ editData: tmp });
+
+
+    }
+    onSubmitButtonClickHandler = () => {
+        let data = {
+            "WHOADDED" :this.state.editData[0],
+            "HEADPHONENAME":this.state.editData[1],
+            "HEADPHONEBRAND":this.state.editData[2],
+            "HEADPHONEREVIEW":this.state.editData[3],
+            "HEADPHONEPRICE":this.state.editData[4],
+            "SOUNDQUALITY":this.state.editData[5],
+            "SOUNDTYPE":this.state.editData[6],
+            "DURABILITY":this.state.editData[7],
+            "DRIVERCOUNT":this.state.editData[8],
+            "DRIVERTYPE":this.state.editData[9],
+            "EAR":this.state.editData[10],
+            "EXNAME":this.state.EXNAME
+
+        }
+        data=JSON.stringify(data);
+        
+
+        
+        axios.post("https://awy9jz88zl.execute-api.us-east-2.amazonaws.com/test/",data, { crossdomain: true })
+            .then((response) => {
+                alert(response.data);
+            })
+
+
+    }
+
     onEditButtonClickHandler = (e) => {
         var data = { 'HEADPHONENAME': e.target.value }
         var tmparray = [];
         axios.get("https://ntil8jqgpk.execute-api.us-east-2.amazonaws.com/getHeadphoneByBrand", { params: data }, { crossdomain: true }).then((res) => {
 
 
-            tmparray.push(res.data.WHOADDED);
-            tmparray.push(res.data.HEADPHONENAME);
-            tmparray.push(res.data.HEADPHONEBRAND);
-            tmparray.push(res.data.HEADPHONEREVIEW);
-            tmparray.push(res.data.HEADPHONEPRICE);
-            tmparray.push(res.data.SOUNDQUALITY);
-            tmparray.push(res.data.SOUNDTYPE);
-            tmparray.push(res.data.DURABILITY);
-            tmparray.push(res.data.DRIVERCOUNT);
-            tmparray.push(res.data.DRIVERTYPE);
-            tmparray.push(res.data.EAR);
+            tmparray.push(res.data.WHOADDED);//text
+            tmparray.push(res.data.HEADPHONENAME);//text
+            this.setState({EXNAME:res.data.HEADPHONENAME});
+            tmparray.push(res.data.HEADPHONEBRAND);//text
+            tmparray.push(res.data.HEADPHONEREVIEW);//text
+            tmparray.push(res.data.HEADPHONEPRICE);//dr-7
+            tmparray.push(res.data.SOUNDQUALITY);//dr-6
+            tmparray.push(res.data.SOUNDTYPE);//dr-5
+            tmparray.push(res.data.DURABILITY);//dr-4
+            tmparray.push(res.data.DRIVERCOUNT);//text
+            tmparray.push(res.data.DRIVERTYPE);//text
+            tmparray.push(res.data.EAR);//dr
 
-            
+            for (let j = 0; j < tmparray.length; j++) {
+                if (j === tmparray.length - 1) {
+                    if (tmparray[j] === 1 || tmparray[j] === "in-ear") {
+                        tmparray[j] = "in-ear";
+
+                    }
+                    else if (tmparray[j] === 2 || tmparray[j] === "over-ear") {
+                        tmparray[j] = "over-ear";
+
+                    }
+
+                    else {
+                        tmparray[j] = "on-ear";
+                    }
+
+
+                }
+                else if (j === tmparray.length - 5) {
+                    if (tmparray[j] === 1 || tmparray[j] === "bass") {
+                        tmparray[j] = "bass";
+                    }
+                    else if (tmparray[j] === 2 || tmparray[j] === "balanced") {
+                        tmparray[j] = "balanced";
+
+                    }
+
+                    else {
+                        tmparray[j] = "v-shaped";
+                    }
+
+                }
+                else if (j > tmparray.length - 8 && j < tmparray.length - 3) {
+
+                    if (tmparray[j] === 1) {
+                        tmparray[j] = "very bad";
+                    }
+                    else if (tmparray[j] === 2) {
+                        tmparray[j] = "bad";
+
+                    }
+                    else if (tmparray[j] === 3) {
+                        tmparray[j] = "average";
+
+                    }
+                    else if (tmparray[j] === 4) {
+                        tmparray[j] = "good";
+
+                    }
+                    else if (tmparray[j] === 5) {
+                        tmparray[j] = "very good";
+
+                    }
+
+                }
+
+            }
             this.setState({ editData: [...tmparray] });
 
         })
@@ -57,7 +145,7 @@ class EditBox extends Component {
 
 
     render() {
-        console.log(this.props);
+
         var elements = [];
 
         for (var i = 0; i < this.props.data.length; i++) {
@@ -72,66 +160,34 @@ class EditBox extends Component {
         let options_dropdown = ['very bad', 'bad', 'average', 'good', 'very good'];
         let options_soundtype = ['bass', 'balanced', 'v-shaped'];
         let options_ear = ['in-ear', 'over-ear', 'on-ear'];
-        if (this.state.editData.length > 0) {
-            var tmpdata = [...this.state.editData];
-            
-            for (var j = 0; j < tmpdata.length; j++) {
-                if (j === tmpdata.length - 1) {
-                    if (tmpdata[j] === 1) {
-                        tmpdata[j] = "in-ear";
+        if (this.state.editData) {
+            if (this.state.editData.length > 0) {
+                var tmpdata = [...this.state.editData];
 
+
+                for (let j = 0; j < tmpdata.length; j++) {
+                    if (j === tmpdata.length - 1) {
+
+
+                        elements2.push(<DropdownList key={j} value={tmpdata[j]} data={options_ear} onChange={value => this.onDropDownChangeHandler(value, j)} ></DropdownList>);
                     }
-                    else if (tmpdata[j] === 2) {
-                        tmpdata[j] = "over-ear";
+                    else if (j === tmpdata.length - 5) {
 
+                        elements2.push(<DropdownList key={j} value={tmpdata[j]} data={options_soundtype} onChange={(value) => this.onDropDownChangeHandler(value, j)}></DropdownList>);
                     }
+                    else if (j > tmpdata.length - 8 && j < tmpdata.length - 3) {
 
+
+                        elements2.push(<DropdownList key={j} value={tmpdata[j]} data={options_dropdown} onChange={(value) => this.onDropDownChangeHandler(value, j)}></DropdownList>)
+                    }
                     else {
-                        tmpdata[j] = "on-ear";
+                        elements2.push(<InputField index={j} key={j} value={tmpdata[j]} placeholder={j} changed={(e) => this.onInputFieldChangeHandler(j, e)}></InputField>)
                     }
-                    elements2.push(<DropdownList key={j} value={tmpdata[j]} data={options_ear} onChange={(placeholder) => this.onDropDownChangeHandler(j, placeholder)} placeholder={j}></DropdownList>);
                 }
-                else if (j === tmpdata.length - 5) {
-                    if (tmpdata[j] === 1) {
-                        tmpdata[j] = "bass";
-                    }
-                    else if (tmpdata[j] === 2) {
-                        tmpdata[j] = "balanced";
 
-                    }
+                elements2.push(<SubmitButton clicked={this.onSubmitButtonClickHandler}></SubmitButton>)
 
-                    else {
-                        tmpdata[j] = "v-shaped";
-                    }
-                    elements2.push(<DropdownList key={j} value={tmpdata[j]} data={options_soundtype} onChange={(e) => this.onDropDownChangeHandler(j, e)} placeholder={j}></DropdownList>);
-                }
-                else if (typeof (tmpdata[j] === "number")) {
-                    if (tmpdata[j] === 1) {
-                        tmpdata[j] = "very bad";
-                    }
-                    else if (tmpdata[j] === 2) {
-                        tmpdata[j] = "bad";
-
-                    }
-                    else if (tmpdata[j] === 3) {
-                        tmpdata[j] = "average";
-
-                    }
-                    else if (tmpdata[j] === 4) {
-                        tmpdata[j] = "good";
-
-                    }
-                    else if (tmpdata[j] === 5) {
-                        tmpdata[j] = "very good";
-
-                    }
-                    elements2.push(<InputField index={j} key={j} value={tmpdata[j]} placeholder={j} changed={(e) => this.onInputFieldChangeHandler(j, e)}></InputField>)
-                }
-                else {
-
-                }
             }
-
         }
 
         return (
