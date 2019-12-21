@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import CancelButton from './CancelButton/CancelButton';
 import SubmitButton from './SubmitButton/SubmitButton';
 import InputField from './InputField/InputField';
+import SearchField from './SearchField/SearchField';
+
+
 import Label from './Label/Label';
 import axios from 'axios';
 import { DropdownList } from 'react-widgets';
 import 'react-widgets/dist/css/react-widgets.css';
 import { thisExpression } from '@babel/types';
 import EditBox from '../EditBox/EditBox';
+import './Form.css'
 class Form extends Component {
 
         state = {
@@ -109,8 +113,8 @@ class Form extends Component {
                                 </div>
                         ) :
 
-                                editing ? (<div>
-                                        <InputField changed={(e)=>this.onSearchFieldChange(e)} placeholder="Search"></InputField>
+                                editing ? (<div className="editform">
+                                        <SearchField changed={(e)=>this.onSearchFieldChange(e)} placeholder="Search"></SearchField>
                                         <SubmitButton clicked={this.onSearchSubmitButtonClickHandler} ></SubmitButton>
                                         <div>{this.state.editBox ? <EditBox data={this.state.editFormData}></EditBox>:null}
                                        

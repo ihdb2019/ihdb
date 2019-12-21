@@ -1,0 +1,12 @@
+.mybutton{
+
+    background-color: #24305e;
+    display: inline-block;
+    border: none;
+    text-align: center;
+    color:#f8e9a1;
+    width: 189px;
+    margin-bottom: 25px;
+    height: 25px;
+ 
+}

@@ -1,10 +1,10 @@
 import React from 'react';
-
+import './AdminPageButton.css'
 
 const AdminPageButton=(props)=>(
 
-    <div>
-        <button onClick={props.clicked}>{props.children}</button>
+    <div >
+        <button className="mybutton" onClick={props.clicked}>{props.children}</button>
     </div>
 );
 
