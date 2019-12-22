@@ -54,6 +54,7 @@ export default function MenuAppBar() {
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
         <a href="/adminpage">adminpage</a>
         <a href="/loginpage">loginpage</a>
+        <a href="/registerpage">registerpage</a>
 
 
     

@@ -5,6 +5,7 @@ import AdminPage from './AdminPage/AdminPage';
 import LoginPage from './LoginPage/LoginPage';
 import NavBar from './NavBar/NavBar'
 import { Route, Switch } from 'react-router-dom';
+import RegisterPage from './RegisterPage/Register';
 function App() {
   return (
     <div className="App">
@@ -16,6 +17,7 @@ function App() {
           <Switch>
             <Route path="/adminpage" component={AdminPage}></Route>
             <Route path="/loginpage" component={LoginPage}></Route>
+            <Route path="/registerpage" component={RegisterPage}></Route>
           </Switch>
         </div>
 
