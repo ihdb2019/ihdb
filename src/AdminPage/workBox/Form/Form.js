@@ -50,7 +50,7 @@ class Form extends Component {
                         data=JSON.stringify(data);
                         axios.post("https://v8wg906jm2.execute-api.us-east-2.amazonaws.com/new/addnews",data, { crossdomain: true })
                                 .then((response) => {
-                                        alert("AMCIK YAVUZ");
+                                        
                                 })
                 }
 

@@ -21,13 +21,29 @@ class Login extends Component {
     axios.post("https://i2t0nkwc15.execute-api.us-east-2.amazonaws.com/new/login", data, { crossdomain: true }).then((res) => {
       console.log(res);
 
-      this.props.setUserName(res.data.body.Username);
-      this.props.setUserType(res.data.body.Usertype);
-      this.props.setToken(res.data.body.TokenHash);
+      
+      localStorage.setItem("usertype", res.data.body.Usertype);
+      localStorage.setItem("username", res.data.body.Username);
+      localStorage.setItem("token", res.data.body.TokenHash);
+      localStorage.setItem("isLogin", true);
+      console.log(res);
+      if(res.data.body.Usertype==="audiophilemaster"){
+        localStorage.setItem("audiophilemaster", true);
+        localStorage.setItem("creator", false);
+
+      }
+      else if(  res.data.body.Usertype==="creator"){
+        localStorage.setItem("audiophilemaster", true);
+        localStorage.setItem("creator", true);
+      }
+      else{
+        localStorage.setItem("audiophilemaster", false);
+        
+      }
       alert("Login Succesfull")
 
 
-
+      window.location.reload();
     })
   }
   constructor(props) {

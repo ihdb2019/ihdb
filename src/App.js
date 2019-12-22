@@ -13,17 +13,18 @@ function App() {
   const [userName, setUserName] = useState("");
   const [userType, setUserType] = useState("");
   const [token, setToken] = useState("");
-  
-
+  const [isLogin, setLogin] = useState(false);
+  const [isAdmin, setAdmin] = useState(false);
+  const [isCreator, setCreator] = useState(false);
   return (
     <div className="App">
       <header className="App-header" >
 
-        <NavBar ></NavBar>
+        <NavBar isAdmin={isAdmin} isLogin={isLogin} userName={userName} userType={userType} ></NavBar>
       </header>
       <div className="App-body">
         <Switch>
-         
+
           <Route
             path='/adminpage'
             render={(props) => <AdminPage {...props} userName={userName} userType={userType} token={token} />}
@@ -38,7 +39,7 @@ function App() {
           />
           <Route
             path='/loginpage'
-            render={(props) => <LoginPage {...props} setUserName={setUserName} setUserType={setUserType} setToken={setToken}  />}
+            render={(props) => <LoginPage {...props} setCreator={setCreator} setAdmin={setAdmin} setLogin={setLogin} setUserName={setUserName} setUserType={setUserType} setToken={setToken} />}
           />
         </Switch>
       </div>
