@@ -26,35 +26,44 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   }
 }));
+const NavBar=(props)=>{
 
-export default function MenuAppBar() {
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-
+  
   const handleChange = event => {
     setAuth(event.target.checked);
   };
 
   const handleMenu = event => {
-      console.log("am")
+      
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
+  var isLogin = (localStorage.getItem("isLogin") == 'true');
 
   return (
+    
     <div className={classes.root} >
       
       <AppBar style={{backgroundColor: '#F76C6C',width:'100%'}} position="static">
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            {localStorage.getItem("audiophilemaster")&&
         <a href="/adminpage">adminpage</a>
+      }
+        {!isLogin&&
         <a href="/loginpage">loginpage</a>
+      }
+      {!isLogin&&
         <a href="/registerpage">registerpage</a>
+      } 
+      
 
 
     
@@ -63,7 +72,7 @@ export default function MenuAppBar() {
           <Typography variant="h6" className={classes.title}>
             Photos
           </Typography>
-          {auth && (
+          {isLogin&& (
             <div>
               <IconButton
                 aria-label="account of current user"
@@ -89,7 +98,8 @@ export default function MenuAppBar() {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                
+                <MenuItem onClick={handleClose}>  <a href="/myprofile">profile</a></MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
               </Menu>
             </div>
@@ -99,3 +109,4 @@ export default function MenuAppBar() {
     </div>
   );
 }
+export default NavBar;

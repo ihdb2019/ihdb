@@ -15,8 +15,7 @@ class RegisterPage extends Component {
             alert("Passwords do not match!")
         }
         else {
-            console.log(event);
-            console.log(this.state);
+        
             let data = {
                 USERNAME: this.state.username,
                 PASSWORD: this.state.password,
@@ -24,11 +23,10 @@ class RegisterPage extends Component {
             }
             data = JSON.stringify(data);
             data = JSON.parse(data);
-            console.log(data);
+           
             axios.post("https://i2t0nkwc15.execute-api.us-east-2.amazonaws.com/new/register", data, { crossdomain: true }).then((res) => {
 
 
-                console.log(res);
 
 
 

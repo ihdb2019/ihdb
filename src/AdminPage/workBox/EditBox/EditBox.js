@@ -22,7 +22,6 @@ class EditBox extends Component {
     onDropDownChangeHandler = (event, index) => {
 
         let tmp = [...this.state.editData]
-        console.log(tmp);
         tmp[index] = event;
         this.setState({ editData: tmp });
 
