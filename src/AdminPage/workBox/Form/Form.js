@@ -70,9 +70,9 @@ class Form extends Component {
                 else{
                         axios.get("https://v8wg906jm2.execute-api.us-east-2.amazonaws.com/test/searchnews", { params: data2}, { crossdomain: true }).then((res) => {
                                 console.log(res)
-                                //tmparray = [...res.data];
-                                //this.setState({ editFormData: tmparray });
-                                //this.setState({ editBox: true });
+                                tmparray = [...res.data];
+                                this.setState({ editFormData: tmparray });
+                                this.setState({ editBox: true });
                         })
                 }
 
@@ -145,7 +145,7 @@ class Form extends Component {
                                 <div className="editform">
                                         <SearchField changed={(e) => this.onSearchFieldChange(e)} placeholder="Search"></SearchField>
                                         <SubmitButton clicked={() => this.onSearchSubmitButtonClickHandler(true)} ></SubmitButton>
-                                        <div>{this.state.editBox ? <EditBox data={this.state.editFormData}></EditBox> : null}
+                                        <div>{this.state.editBox ? <EditBox data={this.state.editFormData} editingNews={editingNews} editingHeadphone={editingHeadphone}></EditBox> : null}
                                         </div>
                                 </div>
                         ) :
@@ -162,7 +162,7 @@ class Form extends Component {
                                 <div className="editform">
                                         <SearchField changed={(e) => this.onSearchFieldChange(e)} placeholder="Search"></SearchField>
                                         <SubmitButton clicked={() => this.onSearchSubmitButtonClickHandler(false)} ></SubmitButton>
-                                        <div>{this.state.editBox ? <EditBox data={this.state.editFormData}></EditBox> : null}
+                                        <div>{this.state.editBox ? <EditBox data={this.state.editFormData} editingNews={editingNews} editingHeadphone={editingHeadphone}></EditBox> : null}
                                         </div>
                                 </div>
                         ) : null

@@ -9,19 +9,15 @@ class EditBox extends Component {
     
     state = {
         editData: [],
-        EXNAME:""
+        EXNAME:"",
+        EXHEADER:""
 
     }
     onInputFieldChangeHandler = (index, e) => {
         let tmp = [...this.state.editData]
         var data = e.target.value;
-
-
         tmp[index] = data;
         this.setState({ editData: tmp });
-
-
-
     }
     onDropDownChangeHandler = (event, index) => {
 
@@ -58,6 +54,20 @@ class EditBox extends Component {
             })
 
 
+    }
+
+    onSubmitButtonClickHandlerNews = () => {
+        let data = {
+            "HEADER" : this.state.editData[0],
+            "TEXT" : this.state.editData[1],
+            "WHOADDED" : this.state.editData[2],
+            "EXHEADER":this.state.EXHEADER
+        }
+        data=JSON.stringify(data);
+        axios.post("https://v8wg906jm2.execute-api.us-east-2.amazonaws.com/new/addnews",data, { crossdomain: true })
+            .then((response) => {
+                alert(response.data);
+        })
     }
 
     onEditButtonClickHandler = (e) => {
@@ -142,11 +152,22 @@ class EditBox extends Component {
 
     }
 
-
+    onEditButtonClickHandlerEditNews = (e) => {
+        var data = { 'searchstring': e.target.value }
+        var tmparray = [];
+        axios.get("https://v8wg906jm2.execute-api.us-east-2.amazonaws.com/test/searchnews", { params: data }, { crossdomain: true }).then((res) => {
+            tmparray.push(res.data[0].HEADER);
+            tmparray.push(res.data[0].TEXT);
+            tmparray.push(res.data[0].WHOADDED);
+            this.setState({EXHEADER:res.data[0].HEADER});
+            this.setState({ editData: [...tmparray] });
+        });
+    }
 
     render() {
 
         var elements = [];
+        if(this.props.editingHeadphone){
 
         for (var i = 0; i < this.props.data.length; i++) {
             elements.push(<div key={i}>
@@ -167,8 +188,6 @@ class EditBox extends Component {
 
                 for (let j = 0; j < tmpdata.length; j++) {
                     if (j === tmpdata.length - 1) {
-
-
                         elements2.push(<DropdownList key={j} value={tmpdata[j]} data={options_ear} onChange={value => this.onDropDownChangeHandler(value, j)} ></DropdownList>);
                     }
                     else if (j === tmpdata.length - 5) {
@@ -176,8 +195,6 @@ class EditBox extends Component {
                         elements2.push(<DropdownList key={j} value={tmpdata[j]} data={options_soundtype} onChange={(value) => this.onDropDownChangeHandler(value, j)}></DropdownList>);
                     }
                     else if (j > tmpdata.length - 8 && j < tmpdata.length - 3) {
-
-
                         elements2.push(<DropdownList key={j} value={tmpdata[j]} data={options_dropdown} onChange={(value) => this.onDropDownChangeHandler(value, j)}></DropdownList>)
                     }
                     else {
@@ -189,12 +206,27 @@ class EditBox extends Component {
 
             }
         }
-
+        }
+        else if(this.props.editingNews){
+            elements.push(<div>
+                <InputField placeholder={this.props.data[0].HEADER}></InputField>
+                <button value={this.props.data[0].HEADER} onClick={(e) => this.onEditButtonClickHandlerEditNews(e)}></button>
+            </div>);
+            var elements2 = [];
+            if (this.state.editData) {
+                if (this.state.editData.length > 0) {
+                    var tmpdata = [...this.state.editData];
+                    for (let j = 0; j < tmpdata.length; j++) {
+                        elements2.push(<InputField index={j} value={tmpdata[j]} placeholder={tmpdata[j]} changed={(e) => this.onInputFieldChangeHandler(j, e)}></InputField>);
+                    }
+                    elements2.push(<SubmitButton clicked={this.onSubmitButtonClickHandlerNews}></SubmitButton>)
+                }
+            }
+        }
         return (
             <div>
                 {elements}
                 {elements2}
-
             </div>
         )
     }
