@@ -7,20 +7,24 @@ import axios from 'axios';
 
 
 class Login extends Component {
+
   handleClick = (event) => {
     console.log(event);
     console.log(this.state);
     let data = {
       USERNAME: this.state.username,
-      PASSWORD:this.state.password
+      PASSWORD: this.state.password
     }
-    data=JSON.stringify(data);
-    data=JSON.parse(data);
+    data = JSON.stringify(data);
+    data = JSON.parse(data);
     console.log(data);
     axios.post("https://i2t0nkwc15.execute-api.us-east-2.amazonaws.com/new/login", data, { crossdomain: true }).then((res) => {
-
-
       console.log(res);
+
+      this.props.setUserName(res.data.body.Username);
+      this.props.setUserType(res.data.body.Usertype);
+      this.props.setToken(res.data.body.TokenHash);
+      alert("Login Succesfull")
 
 
 
@@ -35,6 +39,8 @@ class Login extends Component {
   }
 
   render() {
+    console.log(this.props);
+
     return (
       <div>
         <MuiThemeProvider>

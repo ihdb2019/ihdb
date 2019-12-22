@@ -55,6 +55,7 @@ export default function MenuAppBar() {
         <a href="/adminpage">adminpage</a>
         <a href="/loginpage">loginpage</a>
         <a href="/registerpage">registerpage</a>
+        
 
 
     
@@ -89,7 +90,7 @@ export default function MenuAppBar() {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>  <a href="/myprofile">profile</a></MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
               </Menu>
             </div>
