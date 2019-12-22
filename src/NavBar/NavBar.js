@@ -59,6 +59,7 @@ const NavBar=(props)=>{
       }
         <a href="/listnews">ListNews</a>
         <a href="/listheadphone">ListHeadphone</a>
+        {isLogin && <a href='/findforme'>FindForMe</a>}
         {!isLogin&&
         <a href="/loginpage">loginpage</a>
       }

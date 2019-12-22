@@ -9,6 +9,7 @@ import RegisterPage from './RegisterPage/Register';
 import UserPage from './UserPage/UserPage';
 import ListNews from './ListNews/ListNews'
 import ListHeadphone from './ListHeadphone/ListHeadphone'
+import FindForMe from './FindForMe/FindForMe'
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
           />
           <Route path='/listnews' component={ListNews} />
           <Route path='/listheadphone' component={ListHeadphone} />
+          <Route path='/findforme' component={FindForMe} />
         </Switch>
       </div>
 
