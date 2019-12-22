@@ -171,8 +171,8 @@ class EditBox extends Component {
 
         for (var i = 0; i < this.props.data.length; i++) {
             elements.push(<div key={i}>
-                <InputField key={i + 1} placeholder={this.props.data[i].HEADPHONENAME}></InputField>
-                <InputField key={i + 2} placeholder={this.props.data[i].HEADPHONEBRAND}></InputField>
+                <label key={i + 1}>{this.props.data[i].HEADPHONENAME}</label>
+                <label key={i + 2}>{this.props.data[i].HEADPHONEBRAND}</label>
                 <button key={i + 3} value={this.props.data[i].HEADPHONENAME} onClick={(e) => this.onEditButtonClickHandler(e)}></button>
             </div>)
 
@@ -208,8 +208,8 @@ class EditBox extends Component {
         }
         }
         else if(this.props.editingNews){
-            elements.push(<div>
-                <InputField placeholder={this.props.data[0].HEADER}></InputField>
+            elements.push(<div key='35'>
+                <label>{this.props.data[0].HEADER}</label>
                 <button value={this.props.data[0].HEADER} onClick={(e) => this.onEditButtonClickHandlerEditNews(e)}></button>
             </div>);
             var elements2 = [];
@@ -217,9 +217,9 @@ class EditBox extends Component {
                 if (this.state.editData.length > 0) {
                     var tmpdata = [...this.state.editData];
                     for (let j = 0; j < tmpdata.length; j++) {
-                        elements2.push(<InputField index={j} value={tmpdata[j]} placeholder={tmpdata[j]} changed={(e) => this.onInputFieldChangeHandler(j, e)}></InputField>);
+                        elements2.push(<InputField key={j} value={tmpdata[j]} placeholder={tmpdata[j]} changed={(e) => this.onInputFieldChangeHandler(j, e)}></InputField>);
                     }
-                    elements2.push(<SubmitButton clicked={this.onSubmitButtonClickHandlerNews}></SubmitButton>)
+                    elements2.push(<SubmitButton key='78' clicked={this.onSubmitButtonClickHandlerNews}></SubmitButton>)
                 }
             }
         }

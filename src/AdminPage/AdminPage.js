@@ -11,7 +11,7 @@ function onAddHeadphoneButtonClickHandler (addingHeadphone, setAddingHeadphone, 
     if (editingHeadphone) setEditingHeadphone(!editingHeadphone);
     if (editingNews) setEditingNews(!editingNews);
     if (addingHeadphone) {
-        axios.get('https://r5j018428h.execute-api.us-east-2.amazonaws.com/test/getformheadphone', { crossdomain: true })
+        axios.get('https://qvg27yfaxg.execute-api.us-east-2.amazonaws.com/test/headphone', { crossdomain: true })
             .then(res => {
                 var data = [...res.data.body.fields];
                 var data_type = [...res.data.body.field_type];

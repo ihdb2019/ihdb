@@ -36,7 +36,7 @@ class Form extends Component {
                                 "EAR":this.state.data[10]
                             }
                         data=JSON.stringify(data);
-                        axios.post("https://awy9jz88zl.execute-api.us-east-2.amazonaws.com/test/",data, { crossdomain: true })
+                        axios.post("https://ebn17mlebi.execute-api.us-east-2.amazonaws.com/test/addheadphone",data, { crossdomain: true })
                                 .then((response) => {
                                         alert(response.data);
                                 })
@@ -60,7 +60,7 @@ class Form extends Component {
                 var tmparray = [];
                 console.log(data2);
                 if(mode){
-                        axios.get("https://r5j018428h.execute-api.us-east-2.amazonaws.com/delirmetesti/getformheadphone", { params: data2 }, { crossdomain: true }).then((res) => {
+                        axios.get("https://ebn17mlebi.execute-api.us-east-2.amazonaws.com/test/searchmodelbrand", { params: data2 }, { crossdomain: true }).then((res) => {
                                 console.log(res)
                                 tmparray = [...res.data];
                                 this.setState({ editFormData: tmparray });
