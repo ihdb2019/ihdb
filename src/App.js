@@ -9,7 +9,7 @@ import RegisterPage from './RegisterPage/Register';
 import UserPage from './UserPage/UserPage';
 import ListNews from './ListNews/ListNews'
 import ListHeadphone from './ListHeadphone/ListHeadphone'
-
+import Headphone from './Headphone/Headphone';
 function App() {
 
   const [userName, setUserName] = useState("");
@@ -45,6 +45,7 @@ function App() {
           />
           <Route path='/listnews' component={ListNews} />
           <Route path='/listheadphone' component={ListHeadphone} />
+          <Route path='/headphone' component={Headphone}></Route>
         </Switch>
       </div>
 

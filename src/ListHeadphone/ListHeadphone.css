@@ -1,0 +1,25 @@
+.headphone2{float: left;
+    margin-top: 70px;
+    margin-right:95px;
+    margin-left: 70px;}
+.photo{}
+.name{}
+.container{
+    background-color: #24305e;
+    width: 100%;
+    display: inline-block;
+    height: 100%;
+
+}
+
+.box{
+    background-color:#a8d0e6;
+    width:80% ;
+    display: inline-block;
+    z-index: 0;
+    height: 100%;
+}
+.buttongroup{
+    float: left;
+    width: 100%;
+}
