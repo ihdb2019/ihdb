@@ -7,7 +7,9 @@ import NavBar from './NavBar/NavBar'
 import { Route, Switch } from 'react-router-dom';
 import RegisterPage from './RegisterPage/Register';
 import UserPage from './UserPage/UserPage';
-import { PropsRoute, PublicRoute, PrivateRoute } from 'react-router-with-props';
+import ListNews from './ListNews/ListNews'
+import ListHeadphone from './ListHeadphone/ListHeadphone'
+
 function App() {
 
   const [userName, setUserName] = useState("");
@@ -41,6 +43,8 @@ function App() {
             path='/loginpage'
             render={(props) => <LoginPage {...props} setCreator={setCreator} setAdmin={setAdmin} setLogin={setLogin} setUserName={setUserName} setUserType={setUserType} setToken={setToken} />}
           />
+          <Route path='/listnews' component={ListNews} />
+          <Route path='/listheadphone' component={ListHeadphone} />
         </Switch>
       </div>
 

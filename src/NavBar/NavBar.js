@@ -57,6 +57,8 @@ const NavBar=(props)=>{
             {localStorage.getItem("audiophilemaster")&&
         <a href="/adminpage">adminpage</a>
       }
+        <a href="/listnews">ListNews</a>
+        <a href="/listheadphone">ListHeadphone</a>
         {!isLogin&&
         <a href="/loginpage">loginpage</a>
       }
