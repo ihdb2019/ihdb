@@ -1,0 +1,52 @@
+.searchresults{
+
+    
+    position: relative;
+    float: left;
+    width: 80%;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    background-color: #a8d0e6;
+    height: 35px;
+   
+    margin-left: 10%;
+
+}
+
+.mylabel{
+
+    position: relative;
+    width: 30%;
+    float: left;
+    color: #24305e;
+    font-weight: bold;
+    margin-top: 5px;
+
+}
+
+.rw-dropdown-list-input{
+
+    color:#24305e;
+    background-color:#f8e9a1 ;
+}
+.rw-btn {
+
+    background-color: #a8d0e6;
+}
+.rw-widget {
+    width:25%;
+    margin-left: 40%;
+    float: left;
+}
+.mylabel2{
+
+   
+    color: #f8e9a1;
+    
+
+}
+.inputdivs{
+    float: left;
+    position: relative;
+    width: 100%;
+}

@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import CancelButton from './CancelButton/CancelButton';
 import SubmitButton from './SubmitButton/SubmitButton';
+import SubmitButton2 from './SubmitButton2/SubmitButton2';
 import InputField from './InputField/InputField';
 import SearchField from './SearchField/SearchField';
 
 
-import Label from './Label/Label';
+
 import axios from 'axios';
 import { DropdownList } from 'react-widgets';
 import 'react-widgets/dist/css/react-widgets.css';
-import { thisExpression } from '@babel/types';
+
 import EditBox from '../EditBox/EditBox';
 import './Form.css'
 class Form extends Component {
@@ -18,39 +19,41 @@ class Form extends Component {
                 data: [],
                 search: "",
                 editFormData: [],
-                editBox: false
+                editBox: false,
+                a: false,
+                b: false
         }
         onSubmitButtonClickHandler = (mode) => {
                 if (mode) {
                         let data = {
-                                "WHOADDED" :this.state.data[0],
-                                "HEADPHONENAME":this.state.data[1],
-                                "HEADPHONEBRAND":this.state.data[2],
-                                "HEADPHONEREVIEW":this.state.data[3],
-                                "HEADPHONEPRICE":this.state.data[4],
-                                "SOUNDQUALITY":this.state.data[5],
-                                "SOUNDTYPE":this.state.data[6],
-                                "DURABILITY":this.state.data[7],
-                                "DRIVERCOUNT":this.state.data[8],
-                                "DRIVERTYPE":this.state.data[9],
-                                "EAR":this.state.data[10]
-                            }
-                        data=JSON.stringify(data);
-                        axios.post("https://ebn17mlebi.execute-api.us-east-2.amazonaws.com/test/addheadphone",data, { crossdomain: true })
+                                "WHOADDED": this.state.data[0],
+                                "HEADPHONENAME": this.state.data[1],
+                                "HEADPHONEBRAND": this.state.data[2],
+                                "HEADPHONEREVIEW": this.state.data[3],
+                                "HEADPHONEPRICE": this.state.data[4],
+                                "SOUNDQUALITY": this.state.data[5],
+                                "SOUNDTYPE": this.state.data[6],
+                                "DURABILITY": this.state.data[7],
+                                "DRIVERCOUNT": this.state.data[8],
+                                "DRIVERTYPE": this.state.data[9],
+                                "EAR": this.state.data[10]
+                        }
+                        data = JSON.stringify(data);
+                        axios.post("https://ebn17mlebi.execute-api.us-east-2.amazonaws.com/test/addheadphone", data, { crossdomain: true })
                                 .then((response) => {
                                         alert(response.data);
                                 })
                 }
-                else{
+                else {
                         let data = {
-                                "WHOADDED" :this.state.data[0],
-                                "HEADER":this.state.data[1],
-                                "TEXT":this.state.data[2],
-                            }
-                        data=JSON.stringify(data);
-                        axios.post("https://v8wg906jm2.execute-api.us-east-2.amazonaws.com/new/addnews",data, { crossdomain: true })
+                                "WHOADDED": this.state.data[0],
+                                "HEADER": this.state.data[1],
+                                "TEXT": this.state.data[2],
+                        }
+                        data = JSON.stringify(data);
+                        axios.post("https://v8wg906jm2.execute-api.us-east-2.amazonaws.com/new/addnews", data, { crossdomain: true })
                                 .then((response) => {
-                                        
+
                                 })
                 }
 
@@ -58,8 +61,12 @@ class Form extends Component {
         onSearchSubmitButtonClickHandler = (mode) => {
                 var data2 = { 'searchstring': this.state.search }
                 var tmparray = [];
+                this.setState({ a: true });
+                this.setState({ b: false });
+                console.log(this.state.a);
+
                 console.log(data2);
-                if(mode){
+                if (mode) {
                         axios.get("https://ebn17mlebi.execute-api.us-east-2.amazonaws.com/test/searchmodelbrand", { params: data2 }, { crossdomain: true }).then((res) => {
                                 console.log(res)
                                 tmparray = [...res.data];
@@ -67,8 +74,8 @@ class Form extends Component {
                                 this.setState({ editBox: true });
                         })
                 }
-                else{
-                        axios.get("https://v8wg906jm2.execute-api.us-east-2.amazonaws.com/test/searchnews", { params: data2}, { crossdomain: true }).then((res) => {
+                else {
+                        axios.get("https://v8wg906jm2.execute-api.us-east-2.amazonaws.com/test/searchnews", { params: data2 }, { crossdomain: true }).then((res) => {
                                 console.log(res)
                                 tmparray = [...res.data];
                                 this.setState({ editFormData: tmparray });
@@ -137,32 +144,35 @@ class Form extends Component {
                                                 element = this.createHeadphoneComponent(i, item, this.props.data_type[i])
                                                 return element;
                                         })}
-                                        <SubmitButton clicked={() => this.onSubmitButtonClickHandler(true)}></SubmitButton>
+                                        <SubmitButton2 clicked={() => this.onSubmitButtonClickHandler(true)}></SubmitButton2>
                                 </div>
                         ) :
 
-                        editingHeadphone ? (
-                                <div className="editform">
-                                        <SearchField changed={(e) => this.onSearchFieldChange(e)} placeholder="Search"></SearchField>
-                                        <SubmitButton clicked={() => this.onSearchSubmitButtonClickHandler(true)} ></SubmitButton>
-                                        <div>{this.state.editBox ? <EditBox data={this.state.editFormData} editingNews={editingNews} editingHeadphone={editingHeadphone}></EditBox> : null}
+                                editingHeadphone ? (
+                                        <div className="editform">
+                                                <SearchField changed={(e) => this.onSearchFieldChange(e)} placeholder="Search"></SearchField>
+                                                <div className="submitbut">
+
+                                                <SubmitButton2 clicked={() => this.onSearchSubmitButtonClickHandler(true)} ></SubmitButton2>
+                                        </div> <div>{this.state.editBox ? <EditBox a={this.state.a} b={this.state.b} data={this.state.editFormData} editingNews={editingNews} editingHeadphone={editingHeadphone}></EditBox> : null}
                                         </div>
-                                </div>
+                                </div >
                         ) :
-                        addingNews ? (
-                                <div>
-                                        {this.props.data.map((item, i) => {
-                                                element = this.createNewsComponent(i, item)
-                                                return element;
-                                        })}
-                                        <SubmitButton clicked={() => this.onSubmitButtonClickHandler(false)}></SubmitButton>
-                                </div>
-                        ) :
+                addingNews ? (
+                        <div>
+                                {this.props.data.map((item, i) => {
+                                        element = this.createNewsComponent(i, item)
+                                        return element;
+                                })}
+                                <SubmitButton clicked={() => this.onSubmitButtonClickHandler(false)}></SubmitButton>
+                        </div>
+                ) :
                         editingNews ? (
                                 <div className="editform">
                                         <SearchField changed={(e) => this.onSearchFieldChange(e)} placeholder="Search"></SearchField>
-                                        <SubmitButton clicked={() => this.onSearchSubmitButtonClickHandler(false)} ></SubmitButton>
-                                        <div>{this.state.editBox ? <EditBox data={this.state.editFormData} editingNews={editingNews} editingHeadphone={editingHeadphone}></EditBox> : null}
+                                        <div className="submitbut">
+                                        <SubmitButton2 clicked={() => this.onSearchSubmitButtonClickHandler(false)} ></SubmitButton2>
+                                        </div> <div>{this.state.editBox ? <EditBox a={this.state.a} b={this.state.b} data={this.state.editFormData} editingNews={editingNews} editingHeadphone={editingHeadphone}></EditBox> : null}
                                         </div>
                                 </div>
                         ) : null
