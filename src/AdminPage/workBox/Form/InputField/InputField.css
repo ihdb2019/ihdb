@@ -1,0 +1,16 @@
+.myinput{
+
+    margin:0;
+    background-color: #F8e9a1;
+    color:#24305e;
+    margin-left: 20px;
+}
+
+.mydiv{
+    width: 26%;
+    position: relative;
+    float: left;
+    margin-bottom: 10px;
+    margin-left: 37%;
+    
+}

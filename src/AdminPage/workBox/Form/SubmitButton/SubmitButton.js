@@ -1,10 +1,10 @@
 import React from 'react';
+import './SubmitButton.css'
+const SubmitButton=(props)=>{
 
-const SubmitButton=(props)=>(
 
-
-<button onClick={props.clicked}>Submit</button>
-)
+return(<button className="ok" onClick={props.clicked}>Submit</button>)
+}
 
 
 export default SubmitButton;

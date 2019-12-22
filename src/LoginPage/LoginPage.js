@@ -9,24 +9,23 @@ import axios from 'axios';
 class Login extends Component {
 
   handleClick = (event) => {
-    console.log(event);
-    console.log(this.state);
+   
     let data = {
       USERNAME: this.state.username,
       PASSWORD: this.state.password
     }
     data = JSON.stringify(data);
     data = JSON.parse(data);
-    console.log(data);
+  
     axios.post("https://i2t0nkwc15.execute-api.us-east-2.amazonaws.com/new/login", data, { crossdomain: true }).then((res) => {
-      console.log(res);
+    
 
       
       localStorage.setItem("usertype", res.data.body.Usertype);
       localStorage.setItem("username", res.data.body.Username);
       localStorage.setItem("token", res.data.body.TokenHash);
       localStorage.setItem("isLogin", true);
-      console.log(res);
+     
       if(res.data.body.Usertype==="audiophilemaster"){
         localStorage.setItem("audiophilemaster", true);
         localStorage.setItem("creator", false);
@@ -55,7 +54,7 @@ class Login extends Component {
   }
 
   render() {
-    console.log(this.props);
+    
 
     return (
       <div>

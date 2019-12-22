@@ -1,14 +1,15 @@
 import React from 'react';
+import './InputField.css'
 
 
 
 
 
 
+const InputField = (props) => {
 
-const InputField =(props)=>{
-
-return <input index={props.index} value={props.value} onChange={props.changed} placeholder={props.placeholder}></input>
+    return (<div className="mydiv"> <input className="myinput" index={props.index} value={props.value} onChange={props.changed} placeholder={props.placeholder}></input>
+    </div>)
 }
 
 export default InputField;

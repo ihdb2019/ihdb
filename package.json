@@ -12,6 +12,7 @@
     "react-dom": "^16.12.0",
     "react-dropdown-select": "^3.6.8",
     "react-router-dom": "^5.1.2",
+    "react-router-with-props": "^1.0.0",
     "react-scripts": "3.2.0",
     "react-widgets": "^4.4.11"
   },
