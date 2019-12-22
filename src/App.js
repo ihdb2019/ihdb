@@ -9,8 +9,12 @@ import RegisterPage from './RegisterPage/Register';
 import UserPage from './UserPage/UserPage';
 import ListNews from './ListNews/ListNews'
 import ListHeadphone from './ListHeadphone/ListHeadphone'
+<<<<<<< HEAD
 import FindForMe from './FindForMe/FindForMe'
 
+=======
+import Headphone from './Headphone/Headphone';
+>>>>>>> 15353924ec60baca2fc85f239d4ca9f96635c918
 function App() {
 
   const [userName, setUserName] = useState("");
@@ -46,7 +50,11 @@ function App() {
           />
           <Route path='/listnews' component={ListNews} />
           <Route path='/listheadphone' component={ListHeadphone} />
+<<<<<<< HEAD
           <Route path='/findforme' component={FindForMe} />
+=======
+          <Route path='/headphone' component={Headphone}></Route>
+>>>>>>> 15353924ec60baca2fc85f239d4ca9f96635c918
         </Switch>
       </div>
 
